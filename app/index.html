@@ -131,44 +131,6 @@
         </div>
     </div>
 
-    <script>
-        // Fetch instance metadata from AWS EC2 metadata service
-        async function fetchMetadata() {
-            try {
-                // Fetch instance ID
-                const instanceIdResponse = await fetch('http://169.254.169.254/latest/meta-data/instance-id');
-                const instanceId = await instanceIdResponse.text();
-                
-                // Fetch availability zone
-                const azResponse = await fetch('http://169.254.169.254/latest/meta-data/placement/availability-zone');
-                const az = await azResponse.text();
-                
-                // Update the page
-                document.getElementById('instance-id').textContent = instanceId;
-                document.getElementById('meta-instance-id').textContent = instanceId;
-                document.getElementById('meta-az').textContent = az;
-                
-            } catch (error) {
-                // If not running on EC2, show demo mode
-                document.getElementById('instance-id').textContent = 'i-demo-instance';
-                document.getElementById('meta-instance-id').textContent = 'i-demo-instance (Local Dev)';
-                document.getElementById('meta-az').textContent = 'us-east-1a (Local Dev)';
-                console.log('Running in local development mode');
-            }
-        }
-        
-        // Set timestamp
-        function setTimestamp() {
-            const now = new Date();
-            document.getElementById('timestamp').textContent = now.toLocaleString();
-        }
-        
-        // Initialize
-        fetchMetadata();
-        setTimestamp();
-        
-        // Refresh timestamp every minute
-        setInterval(setTimestamp, 60000);
-    </script>
+    <script src="../src/app.js"></script>
 </body>
 </html>
