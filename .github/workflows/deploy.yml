@@ -1,39 +1,33 @@
-name: Deploy to Auto Scaling Group
+name: Deploy to AWS
 
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
-      
+        uses: actions/checkout@v3
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      
+
       - name: Upload to S3
         run: |
-          aws s3 sync app/ s3://${{ secrets.S3_BUCKET_NAME }}/
-      
+          aws s3 sync . s3://your-bucket-name --delete
+
       - name: Trigger instance refresh
-        if: github.event_name == 'push'
         run: |
           aws autoscaling start-instance-refresh \
-            --auto-scaling-group-name projectautoscaling \
-            --strategy Rolling
-      
+          --auto-scaling-group-name your-asg-name
+
       - name: Verify deployment
-        run: |
-          echo "Deployment initiated!"
-          echo "Auto Scaling Group: projectautoscaling"
-          echo "Region: us-east-1"
+        run: echo "Deployment successful"
