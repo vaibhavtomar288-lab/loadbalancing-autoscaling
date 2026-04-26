@@ -22,12 +22,12 @@ jobs:
 
       - name: Upload to S3
         run: |
-          aws s3 sync . s3://your-bucket-name --delete
+          aws s3 sync . s3://alb-bucket-scaling --delete
 
       - name: Trigger instance refresh
         run: |
           aws autoscaling start-instance-refresh \
-          --auto-scaling-group-name your-asg-name
+          --auto-scaling-group-name - projectautoscaling
 
       - name: Verify deployment
         run: echo "Deployment successful"
