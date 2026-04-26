@@ -1,0 +1,24 @@
+# AWS Auto Scaling Load Balancer Project
+
+## Git Ignore
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.local
+
+# Temporary files
+*.tmp
+*.bak
