@@ -26,9 +26,9 @@ jobs:
           aws s3 sync . s3://alb-bucket-scaling --delete
 
       - name: Trigger instance refresh
-        run: 
+        run: |
           aws autoscaling start-instance-refresh \
-          --auto-scaling-group-name - projectautoscaling
+          --auto-scaling-group-name projectautoscaling
 
       - name: Verify deployment
         run: echo "Deployment successful"
